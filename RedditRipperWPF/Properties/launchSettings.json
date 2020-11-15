@@ -1,0 +1,8 @@
+{
+  "profiles": {
+    "RedditRipperWPF": {
+      "commandName": "Project",
+      "nativeDebugging": false
+    }
+  }
+}
