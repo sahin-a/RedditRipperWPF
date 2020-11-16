@@ -20,7 +20,7 @@
             <ListView x:Name="DownloadLogBox" Grid.Row="0">
                 <ListView.ItemTemplate>
                     <DataTemplate>
-                        <Grid>
+                        <Grid Width="Auto">
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="*" />
                             </Grid.ColumnDefinitions>
@@ -36,9 +36,8 @@
                                     <ColumnDefinition Width="*" />
                                 </Grid.ColumnDefinitions>
 
-                                <Label Content="{Binding SubReddit}" Margin="5" Padding="5" Grid.Column="0" />
-                                <Label Content="{Binding Title}" Margin="5" Padding="5" Grid.Column="1" />
-                                <Label Content="{Binding Size}" Margin="5" Padding="5" Grid.Column="2" />
+                                <Label Content="{Binding Title}" Margin="5" Padding="5" Grid.Column="0" />
+                                <Label Content="{Binding Size}" Margin="5" Padding="5" Grid.Column="1" />
                             </Grid>
 
                             <ProgressBar Value="{Binding Progress}" Grid.Row="1" Maximum="100" Margin="5"/>

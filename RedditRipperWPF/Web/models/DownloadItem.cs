@@ -2,9 +2,9 @@
 using System.Runtime.CompilerServices;
 using System.Windows.Media.Imaging;
 
-namespace RedditRipperWPF.models
+namespace RedditRipperWPF.Web.models
 {
-    class DownloadItem : INotifyPropertyChanged
+    public class DownloadItem : INotifyPropertyChanged
     {
         private BitmapImage image;
         public BitmapImage Image
@@ -21,12 +21,11 @@ namespace RedditRipperWPF.models
             set { title = value; NotifyPropertyChanged(); }
         }
 
-
-        private string subReddit;
-        public string SubReddit
+        private string url;
+        public string Url
         {
-            get { return subReddit; }
-            set { subReddit = value; NotifyPropertyChanged(); }
+            get { return url; }
+            set { url = value; NotifyPropertyChanged(); }
         }
 
         private string size;

@@ -1,4 +1,4 @@
-﻿using RedditRipperWPF.models;
+﻿using RedditRipperWPF.Web.models;
 using RedditRipperWPF.RedditAPI;
 using RedditRipperWPF.RedditAPI.enums;
 using RedditRipperWPF.RedditAPI.models;
@@ -19,6 +19,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using RedditRipperWPF.Web;
 
 namespace RedditRipperWPF
 {
@@ -54,14 +55,16 @@ namespace RedditRipperWPF
             RedditRipper ripper = new RedditRipper(subRedditName, postStatus);
             SubReddit subReddit = await ripper.GetSubReddit();
             
-            foreach (Post post in subReddit.Data.Posts)
+            foreach (Post post in subReddit.Data.Posts.Skip(2))
             {
                 DownloadItem item = new DownloadItem();
                 item.Title = post.Data.Title;
-                item.Progress = 50; // TODO: write a download method that reports progress
-                item.SubReddit = subRedditName;
+                item.Url = post.Data.Url;
 
                 this.DownloadLogBox.Items.Add(item);
+
+                Downloader downloader = new Downloader();
+                await downloader.DownloadAsyncTask(item);
             }
         }
     }
