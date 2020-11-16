@@ -1,10 +1,7 @@
 ﻿using RedditRipperWPF.Web.models;
 using RedditRipperWPF.Web.utils;
-using System;
-using System.Collections.Generic;
 using System.IO;
 using System.Net;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace RedditRipperWPF.Web
@@ -20,15 +17,17 @@ namespace RedditRipperWPF.Web
             Directory.CreateDirectory(downloadDir);
         }
 
-        // TODO: Replace invalid characters
         public async Task DownloadAsyncTask(DownloadItem item)
         {
             wc.DownloadProgressChanged += (sender, e) =>
             {
-                item.Progress = e.ProgressPercentage; //(e.BytesReceived / e.TotalBytesToReceive) * 100;
+                item.Progress = e.ProgressPercentage;
             };
 
-            await wc.DownloadFileTaskAsync(item.Url, $"{downloadDir}\\{await Utils.Instance.ReplaceInvalidCharsAsync(item.Title)}");
+            string title = Utils.Instance.ReplaceInvalidCharsAsync(item.Title);
+            string fileName = item.Url.Remove(0, title.LastIndexOf('/') + 1);
+
+            await wc.DownloadFileTaskAsync(item.Url, $"{downloadDir}\\{fileName}");
         }
     }
 }

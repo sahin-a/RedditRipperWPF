@@ -1,6 +1,8 @@
-﻿using System;
+﻿using HtmlAgilityPack;
+using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Net;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -19,13 +21,16 @@ namespace RedditRipperWPF.Web.utils
         {
             char[] invalidFileNameCars = Path.GetInvalidFileNameChars();
             char[] invalidPathChars = Path.GetInvalidPathChars();
+            char[] additionalChars = new char[] { '\"', '\'', ' ' };
 
-            invalidChars = new char[invalidFileNameCars.Length + invalidPathChars.Length];
+            invalidChars = new char[invalidFileNameCars.Length + invalidPathChars.Length + additionalChars.Length];
+
             Array.Copy(invalidFileNameCars, this.invalidChars, invalidFileNameCars.Length);
             Array.Copy(invalidPathChars, this.invalidChars, invalidPathChars.Length);
+            Array.Copy(additionalChars, this.invalidChars, additionalChars.Length);
         }
 
-        public async Task<string> ReplaceInvalidCharsAsync(string value)
+        public string ReplaceInvalidCharsAsync(string value)
         {
             foreach (char invalidChar in invalidChars)
             {
