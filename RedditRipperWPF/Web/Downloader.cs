@@ -1,4 +1,5 @@
 ﻿using RedditRipperWPF.Web.models;
+using RedditRipperWPF.Web.utils;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -24,10 +25,10 @@ namespace RedditRipperWPF.Web
         {
             wc.DownloadProgressChanged += (sender, e) =>
             {
-                item.Progress = (e.BytesReceived / e.TotalBytesToReceive) * 100;
+                item.Progress = e.ProgressPercentage; //(e.BytesReceived / e.TotalBytesToReceive) * 100;
             };
 
-            await wc.DownloadFileTaskAsync(item.Url, $"{downloadDir}\\{item.Title}");
+            await wc.DownloadFileTaskAsync(item.Url, $"{downloadDir}\\{await Utils.Instance.ReplaceInvalidCharsAsync(item.Title)}");
         }
     }
 }
