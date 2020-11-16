@@ -1,9 +1,11 @@
 ﻿using RedditRipperWPF.models;
 using RedditRipperWPF.RedditAPI;
+using RedditRipperWPF.RedditAPI.enums;
 using RedditRipperWPF.RedditAPI.models;
 using RedditRipperWPF.RedditAPI.utils;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Net.Http;
 using System.Text;
@@ -28,32 +30,35 @@ namespace RedditRipperWPF
         public MainWindow()
         {
             InitializeComponent();
+            Init();
         }
 
-        private async void Test()
+        private void Init()
         {
-            RedditRipper ripper = new RedditRipper("memes", RedditAPI.enums.PostStatus.Hot);
-            SubReddit subReddit = await ripper.GetSubReddit();
+            Array postStatusValues = Enum.GetValues(typeof(PostStatus));
 
-            Console.WriteLine(subReddit.Name);
-            subReddit.Data.Posts.ForEach(post => Console.WriteLine(post.Data.Url));
+            foreach (PostStatus postStatus in postStatusValues)
+            {
+                PostStatusComboBox.Items.Add(postStatus);
+            }
         }
 
         private async void DownloadBtn_Click(object sender, RoutedEventArgs e)
         {
             string subRedditName = this.SubredditTBox.Text;
+            PostStatus postStatus = (PostStatus) this.PostStatusComboBox.SelectedItem;
 
-            if (String.IsNullOrEmpty(subRedditName) || String.IsNullOrWhiteSpace(subRedditName))
+            if (string.IsNullOrEmpty(subRedditName) || string.IsNullOrWhiteSpace(subRedditName))
                 return;
 
-            RedditRipper ripper = new RedditRipper(subRedditName, RedditAPI.enums.PostStatus.Hot);
+            RedditRipper ripper = new RedditRipper(subRedditName, postStatus);
             SubReddit subReddit = await ripper.GetSubReddit();
             
             foreach (Post post in subReddit.Data.Posts)
             {
                 DownloadItem item = new DownloadItem();
                 item.Title = post.Data.Title;
-                item.Progress = 50;
+                item.Progress = 50; // TODO: write a download method that reports progress
                 item.SubReddit = subRedditName;
 
                 this.DownloadLogBox.Items.Add(item);

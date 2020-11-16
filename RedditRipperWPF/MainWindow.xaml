@@ -55,14 +55,7 @@
                 </Grid.ColumnDefinitions>
 
                 <TextBox x:Name="SubredditTBox" Padding="5" Grid.Column="0" />
-                <ComboBox x:Name="PostStatusComboBox" SelectedIndex="0" Grid.Column="1" Padding="5">
-                    <ComboBoxItem>
-                        TestItem
-                    </ComboBoxItem>
-                    <ComboBoxItem>
-                        TestItem
-                    </ComboBoxItem>
-                </ComboBox>
+                <ComboBox x:Name="PostStatusComboBox" SelectedIndex="0" Grid.Column="1" Padding="5" />
             </Grid>
 
             <Button x:Name="DownloadBtn" Content="Download" Grid.Row="2" Padding="5" Click="DownloadBtn_Click"/>
