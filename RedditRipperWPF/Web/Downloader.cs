@@ -24,8 +24,25 @@ namespace RedditRipperWPF.Web
                 item.Progress = e.ProgressPercentage;
             };
 
-            string title = Utils.Instance.ReplaceInvalidCharsAsync(item.Title);
-            string fileName = item.Url.Remove(0, title.LastIndexOf('/') + 1);
+            // TODO: remove test code
+
+            string extension = ".png";
+            string fileName = Utils.Instance.ReplaceInvalidCharsAsync(item.Title) + extension;
+
+            await wc.DownloadFileTaskAsync(item.Url, $"{downloadDir}\\{fileName}");
+        }
+
+        public async void DownloadAsync(DownloadItem item)
+        {
+            wc.DownloadProgressChanged += (sender, e) =>
+            {
+                item.Progress = e.ProgressPercentage;
+            };
+
+            // TODO: remove test code
+
+            string extension = ".png";
+            string fileName = Utils.Instance.ReplaceInvalidCharsAsync(item.Title) + extension;
 
             await wc.DownloadFileTaskAsync(item.Url, $"{downloadDir}\\{fileName}");
         }

@@ -1,9 +1,7 @@
-﻿using Newtonsoft.Json;
-using RedditRipperWPF.RedditAPI.enums;
+﻿using RedditRipperWPF.RedditAPI.enums;
 using RedditRipperWPF.RedditAPI.models;
 using RedditRipperWPF.RedditAPI.utils;
 using RedditRipperWPF.Web;
-using System;
 using System.Threading.Tasks;
 
 namespace RedditRipperWPF.RedditAPI
@@ -22,10 +20,12 @@ namespace RedditRipperWPF.RedditAPI
         public async Task<SubReddit> GetSubReddit()
         {
             string url = Utils.BuildUrl(this.subReddit, postStatus);
-            string json = await WebRequest.Get(url);
+            string json = await WebRequest.GetAsyncTask(url);
 
             SubReddit subReddit = SubReddit.ConvertToSubReddit(json);
             subReddit.Name = this.subReddit;
+
+            // TODO: add gfycat support + get filename and right extension
 
             return subReddit;
         }

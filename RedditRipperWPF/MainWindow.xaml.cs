@@ -20,6 +20,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using RedditRipperWPF.Web;
+using System.Net;
 
 namespace RedditRipperWPF
 {
@@ -36,6 +37,8 @@ namespace RedditRipperWPF
 
         private void Init()
         {
+            ServicePointManager.DefaultConnectionLimit = 10;
+
             Array postStatusValues = Enum.GetValues(typeof(PostStatus));
 
             foreach (PostStatus postStatus in postStatusValues)
@@ -49,12 +52,9 @@ namespace RedditRipperWPF
             string subRedditName = this.SubredditTBox.Text;
             PostStatus postStatus = (PostStatus) this.PostStatusComboBox.SelectedItem;
 
-            if (string.IsNullOrEmpty(subRedditName) || string.IsNullOrWhiteSpace(subRedditName))
-                return;
-
             RedditRipper ripper = new RedditRipper(subRedditName, postStatus);
             SubReddit subReddit = await ripper.GetSubReddit();
-            
+
             foreach (Post post in subReddit.Data.Posts.Skip(2))
             {
                 DownloadItem item = new DownloadItem();
@@ -64,7 +64,7 @@ namespace RedditRipperWPF
                 this.DownloadLogBox.Items.Add(item);
 
                 Downloader downloader = new Downloader();
-                await downloader.DownloadAsyncTask(item);
+                downloader.DownloadAsync(item);
             }
         }
     }

@@ -10,12 +10,12 @@ namespace RedditRipperWPF.Web
     {
         private static HttpClient client = new HttpClient();
 
-        public static async Task<string> Get(string url)
+        public static async Task<string> GetAsyncTask(string url)
         {
             return await client.GetStringAsync(url);
         }
 
-        public static async Task<string> Post(string url, Dictionary<string, string> data)
+        public static async Task<string> PostAsyncTask(string url, Dictionary<string, string> data)
         {
             HttpContent content = new FormUrlEncodedContent(data);
             HttpResponseMessage response = await client.PostAsync(url, content);
