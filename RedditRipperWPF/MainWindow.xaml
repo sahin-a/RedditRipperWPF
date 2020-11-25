@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:RedditRipperWPF"
         mc:Ignorable="d"
-        Title="RedditRipperWPF" Height="450" Width="800">
+        Title="RedditRipperWPF" Height="450" Width="800" MaxWidth="800">
     <Grid Margin="5">
         <Grid>
             <Grid.ColumnDefinitions>
@@ -17,10 +17,10 @@
                 <RowDefinition Height="Auto" />
             </Grid.RowDefinitions>
 
-            <ListView x:Name="DownloadLogBox" Grid.Row="0">
+            <ListView x:Name="DownloadLogBox" Grid.Row="0"  HorizontalContentAlignment="Stretch">
                 <ListView.ItemTemplate>
                     <DataTemplate>
-                        <Grid Width="Auto">
+                        <Grid>
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="*" />
                             </Grid.ColumnDefinitions>
