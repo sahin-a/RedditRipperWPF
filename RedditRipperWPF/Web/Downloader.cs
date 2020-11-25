@@ -1,5 +1,6 @@
 ﻿using RedditRipperWPF.Web.models;
 using RedditRipperWPF.Web.utils;
+using System.Diagnostics;
 using System.IO;
 using System.Net;
 using System.Threading.Tasks;
@@ -11,25 +12,9 @@ namespace RedditRipperWPF.Web
         private WebClient wc = new WebClient();
         private string downloadDir;
 
-        public Downloader(string downloadDir = "Downloads")
+        public Downloader(string downloadDir)
         {
             this.downloadDir = downloadDir;
-            Directory.CreateDirectory(downloadDir);
-        }
-
-        public async Task DownloadAsyncTask(DownloadItem item)
-        {
-            wc.DownloadProgressChanged += (sender, e) =>
-            {
-                item.Progress = e.ProgressPercentage;
-            };
-
-            // TODO: remove test code
-
-            string extension = ".png";
-            string fileName = Utils.Instance.ReplaceInvalidCharsAsync(item.Title) + extension;
-
-            await wc.DownloadFileTaskAsync(item.Url, $"{downloadDir}\\{fileName}");
         }
 
         public async void DownloadAsync(DownloadItem item)
@@ -39,12 +24,12 @@ namespace RedditRipperWPF.Web
                 item.Progress = e.ProgressPercentage;
             };
 
-            // TODO: remove test code
+            string fileName = Utils.Instance.GetFileNameFromUrl(item.Url);
+            fileName = string.IsNullOrEmpty(fileName) ? $"{item.Title}.png" : fileName;
 
-            string extension = ".png";
-            string fileName = Utils.Instance.ReplaceInvalidCharsAsync(item.Title) + extension;
+            Debug.WriteLine($"File Name: {fileName}");
 
-            await wc.DownloadFileTaskAsync(item.Url, $"{downloadDir}\\{fileName}");
+            await wc.DownloadFileTaskAsync(item.Url, $"{downloadDir}\\{Utils.Instance.ReplaceInvalidChars(fileName)}");
         }
     }
 }

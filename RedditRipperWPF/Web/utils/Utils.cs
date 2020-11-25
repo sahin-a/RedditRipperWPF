@@ -25,7 +25,7 @@ namespace RedditRipperWPF.Web.utils
             Array.Copy(additionalChars, this.invalidChars, additionalChars.Length);
         }
 
-        public string ReplaceInvalidCharsAsync(string value)
+        public string ReplaceInvalidChars(string value)
         {
             foreach (char invalidChar in invalidChars)
             {
@@ -33,6 +33,11 @@ namespace RedditRipperWPF.Web.utils
             }
 
             return value;
+        }
+
+        public string GetFileNameFromUrl(string url)
+        {
+            return url.Remove(0, url.LastIndexOf('/') + 1);
         }
     }
 }

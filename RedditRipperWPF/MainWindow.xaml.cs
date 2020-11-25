@@ -21,6 +21,7 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using RedditRipperWPF.Web;
 using System.Net;
+using System.IO;
 
 namespace RedditRipperWPF
 {
@@ -55,6 +56,8 @@ namespace RedditRipperWPF
             RedditRipper ripper = new RedditRipper(subRedditName, postStatus);
             SubReddit subReddit = await ripper.GetSubReddit();
 
+            Directory.CreateDirectory("Downloads");
+
             foreach (Post post in subReddit.Data.Posts.Skip(2))
             {
                 DownloadItem item = new DownloadItem();
@@ -63,7 +66,7 @@ namespace RedditRipperWPF
 
                 this.DownloadLogBox.Items.Add(item);
 
-                Downloader downloader = new Downloader();
+                Downloader downloader = new Downloader("Downloads");
                 downloader.DownloadAsync(item);
             }
         }

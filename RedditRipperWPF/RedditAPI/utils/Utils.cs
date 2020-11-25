@@ -14,7 +14,7 @@ namespace RedditRipperWPF.RedditAPI.utils
 
         public static string BuildUrl(string subReddit, PostStatus postStatus)
         {
-            return $"https://www.reddit.com/r/{subReddit}/{postStatus}/.json";
+            return $"https://www.reddit.com/r/{subReddit}/{postStatus.ToString().ToLower()}/.json";
         }
 
         public static bool IsValidSubRedditUrl(string uri)

@@ -26,6 +26,7 @@ namespace RedditRipperWPF.RedditAPI
             subReddit.Name = this.subReddit;
 
             // TODO: add gfycat support + get filename and right extension
+            // TODO: loop through the collection and delete the elements that contain domains that are not on the support list.
 
             return subReddit;
         }
