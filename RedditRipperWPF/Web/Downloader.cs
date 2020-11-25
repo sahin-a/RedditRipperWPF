@@ -24,7 +24,14 @@ namespace RedditRipperWPF.Web
 
             Debug.WriteLine($"Url: {item.Url} File Name: {item.FileName}");
 
-            await wc.DownloadFileTaskAsync(item.Url, $"{downloadDir}\\{Utils.Instance.ReplaceInvalidChars(item.FileName)}");
+            try
+            {
+                await wc.DownloadFileTaskAsync(item.Url, $"{downloadDir}\\{Utils.Instance.ReplaceInvalidChars(item.FileName)}");
+            }
+            catch (WebException we)
+            {
+                item.Title = we.Message;
+            }
         }
     }
 }

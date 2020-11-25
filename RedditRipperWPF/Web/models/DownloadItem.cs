@@ -25,7 +25,7 @@ namespace RedditRipperWPF.Web.models
         public string Url
         {
             get { return url; }
-            set { url = value; NotifyPropertyChanged(); }
+            set { url = value; }
         }
 
         private string size;
@@ -46,7 +46,7 @@ namespace RedditRipperWPF.Web.models
         public string FileName
         {
             get { return fileName; }
-            set { fileName = value; NotifyPropertyChanged(); }
+            set { fileName = value; }
         }
 
 
