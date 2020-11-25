@@ -38,6 +38,8 @@ namespace RedditRipperWPF
 
         private void Init()
         {
+            Directory.CreateDirectory("Downloads");
+
             ServicePointManager.DefaultConnectionLimit = 10;
 
             Array postStatusValues = Enum.GetValues(typeof(PostStatus));
@@ -51,18 +53,27 @@ namespace RedditRipperWPF
         private async void DownloadBtn_Click(object sender, RoutedEventArgs e)
         {
             string subRedditName = this.SubredditTBox.Text;
-            PostStatus postStatus = (PostStatus) this.PostStatusComboBox.SelectedItem;
+            PostStatus postStatus = (PostStatus)this.PostStatusComboBox.SelectedItem;
 
             RedditRipper ripper = new RedditRipper(subRedditName, postStatus);
             SubReddit subReddit = await ripper.GetSubReddit();
-
-            Directory.CreateDirectory("Downloads");
 
             foreach (Post post in subReddit.Data.Posts.Skip(2))
             {
                 DownloadItem item = new DownloadItem();
                 item.Title = post.Data.Title;
                 item.Url = post.Data.Url;
+
+                // test
+                if (item.Url.Contains("gfycat.com"))
+                    item.Url = RedditAPI.utils.Utils.GetImageUrlFromGfycat(item.Url);
+                else
+                    if (!item.Url.Contains("i.imgur.com") && !item.Url.Contains("i.redd.it"))
+                    return;
+
+                item.FileName = Web.utils.Utils.Instance.GetFileNameFromUrl(item.Url);
+                item.FileName = string.IsNullOrEmpty(item.FileName) || string.IsNullOrWhiteSpace(item.FileName)
+                    ? $"{item.Title}.png" : item.FileName;
 
                 this.DownloadLogBox.Items.Add(item);
 

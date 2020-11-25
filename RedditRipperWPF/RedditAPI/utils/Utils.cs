@@ -12,9 +12,9 @@ namespace RedditRipperWPF.RedditAPI.utils
     {
         private static Regex regex = new Regex(@"^(http|https):\/\/www.(reddit).com\/r\/([a-zA-Z0-9]{0,21})(\/|)$");
 
-        public static string BuildUrl(string subReddit, PostStatus postStatus)
+        public static string BuildUrl(string subReddit, PostStatus postStatus, int limit = 100)
         {
-            return $"https://www.reddit.com/r/{subReddit}/{postStatus.ToString().ToLower()}/.json";
+            return $"https://www.reddit.com/r/{subReddit}/{postStatus.ToString().ToLower()}/.json?limit={limit}";
         }
 
         public static bool IsValidSubRedditUrl(string uri)
@@ -39,7 +39,7 @@ namespace RedditRipperWPF.RedditAPI.utils
             return null;
         }
 
-        private static string GetImageUrlFromGfycat(string url)
+        public static string GetImageUrlFromGfycat(string url)
         {
             using (WebClient wc = new WebClient())
             {

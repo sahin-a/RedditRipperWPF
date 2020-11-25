@@ -42,6 +42,13 @@ namespace RedditRipperWPF.Web.models
             set { progress = value; NotifyPropertyChanged(); }
         }
 
+        private string fileName;
+        public string FileName
+        {
+            get { return fileName; }
+            set { fileName = value; NotifyPropertyChanged(); }
+        }
+
 
         public event PropertyChangedEventHandler PropertyChanged;
         private void NotifyPropertyChanged([CallerMemberName] string propertyName = "")

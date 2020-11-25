@@ -1,9 +1,7 @@
 ﻿using RedditRipperWPF.Web.models;
 using RedditRipperWPF.Web.utils;
 using System.Diagnostics;
-using System.IO;
 using System.Net;
-using System.Threading.Tasks;
 
 namespace RedditRipperWPF.Web
 {
@@ -24,12 +22,9 @@ namespace RedditRipperWPF.Web
                 item.Progress = e.ProgressPercentage;
             };
 
-            string fileName = Utils.Instance.GetFileNameFromUrl(item.Url);
-            fileName = string.IsNullOrEmpty(fileName) ? $"{item.Title}.png" : fileName;
+            Debug.WriteLine($"Url: {item.Url} File Name: {item.FileName}");
 
-            Debug.WriteLine($"File Name: {fileName}");
-
-            await wc.DownloadFileTaskAsync(item.Url, $"{downloadDir}\\{Utils.Instance.ReplaceInvalidChars(fileName)}");
+            await wc.DownloadFileTaskAsync(item.Url, $"{downloadDir}\\{Utils.Instance.ReplaceInvalidChars(item.FileName)}");
         }
     }
 }
