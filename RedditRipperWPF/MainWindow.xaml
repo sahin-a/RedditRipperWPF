@@ -51,10 +51,12 @@
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="*" />
                     <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="Auto" />
                 </Grid.ColumnDefinitions>
 
                 <TextBox x:Name="SubredditTBox" Padding="5" Grid.Column="0" />
-                <ComboBox x:Name="PostStatusComboBox" SelectedIndex="0" Grid.Column="1" Padding="5" />
+                <TextBox x:Name="PostCountTBox" Grid.Column="1" Padding="5" Text="10" TextChanged="PostCountTBox_TextChanged" />
+                <ComboBox x:Name="PostStatusComboBox" SelectedIndex="0" Grid.Column="2" Padding="5" />
             </Grid>
 
             <Button x:Name="DownloadBtn" Content="Download" Grid.Row="2" Padding="5" Click="DownloadBtn_Click"/>

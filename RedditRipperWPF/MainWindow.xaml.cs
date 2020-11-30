@@ -1,27 +1,13 @@
-﻿using RedditRipperWPF.Web.models;
-using RedditRipperWPF.RedditAPI;
+﻿using RedditRipperWPF.RedditAPI;
 using RedditRipperWPF.RedditAPI.enums;
 using RedditRipperWPF.RedditAPI.models;
-using RedditRipperWPF.RedditAPI.utils;
-using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
-using System.Net.Http;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 using RedditRipperWPF.Web;
-using System.Net;
+using RedditRipperWPF.Web.models;
+using System;
 using System.IO;
+using System.Linq;
+using System.Net;
+using System.Windows;
 
 namespace RedditRipperWPF
 {
@@ -79,6 +65,21 @@ namespace RedditRipperWPF
 
                 Downloader downloader = new Downloader("Downloads");
                 downloader.DownloadAsync(item);
+            }
+        }
+
+        private void PostCountTBox_TextChanged(object sender, System.Windows.Controls.TextChangedEventArgs e)
+        {
+            if (Int32.TryParse(PostCountTBox.Text, out int result))
+            {
+                if (result > 100)
+                {
+                    PostCountTBox.Text = "100";
+                } 
+                else if (result < 1)
+                {
+                    PostCountTBox.Text = "1";
+                }
             }
         }
     }
