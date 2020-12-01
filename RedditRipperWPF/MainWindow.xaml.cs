@@ -7,6 +7,7 @@ using System;
 using System.IO;
 using System.Linq;
 using System.Net;
+using System.Text.RegularExpressions;
 using System.Windows;
 
 namespace RedditRipperWPF
@@ -24,8 +25,6 @@ namespace RedditRipperWPF
 
         private void Init()
         {
-            Directory.CreateDirectory("Downloads");
-
             ServicePointManager.DefaultConnectionLimit = 10;
 
             Array postStatusValues = Enum.GetValues(typeof(PostStatus));
@@ -70,16 +69,22 @@ namespace RedditRipperWPF
 
         private void PostCountTBox_TextChanged(object sender, System.Windows.Controls.TextChangedEventArgs e)
         {
-            if (Int32.TryParse(PostCountTBox.Text, out int result))
+            try
             {
+                uint result = (uint)Int32.Parse(PostCountTBox.Text);
+
                 if (result > 100)
                 {
                     PostCountTBox.Text = "100";
-                } 
-                else if (result < 1)
+                }
+                else if (result == 0)
                 {
                     PostCountTBox.Text = "1";
                 }
+            }
+            catch (Exception)
+            {
+                PostCountTBox.Text = "1";
             }
         }
     }

@@ -1,6 +1,7 @@
 ﻿using RedditRipperWPF.Web.models;
 using RedditRipperWPF.Web.utils;
 using System.Diagnostics;
+using System.IO;
 using System.Net;
 
 namespace RedditRipperWPF.Web
@@ -26,6 +27,7 @@ namespace RedditRipperWPF.Web
 
             try
             {
+                Directory.CreateDirectory(this.downloadDir);
                 await wc.DownloadFileTaskAsync(item.Url, $"{downloadDir}\\{Utils.Instance.ReplaceInvalidChars(item.FileName)}");
             }
             catch (WebException we)
