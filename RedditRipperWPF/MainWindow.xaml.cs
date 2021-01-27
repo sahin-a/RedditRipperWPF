@@ -39,11 +39,12 @@ namespace RedditRipperWPF
         {
             string subRedditName = this.SubredditTBox.Text;
             PostStatus postStatus = (PostStatus)this.PostStatusComboBox.SelectedItem;
+            int maxPosts = Int32.Parse(PostCountTBox.Text);
 
-            RedditRipper ripper = new RedditRipper(subRedditName, postStatus);
+            RedditRipper ripper = new RedditRipper(subRedditName, postStatus, maxPosts);
             SubReddit subReddit = await ripper.GetSubReddit();
 
-            foreach (Post post in subReddit.Data.Posts.Skip(2))
+            foreach (Post post in subReddit.Data.Posts)
             {
                 DownloadItem item = new DownloadItem();
                 item.Title = post.Data.Title;

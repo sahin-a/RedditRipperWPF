@@ -10,16 +10,18 @@ namespace RedditRipperWPF.RedditAPI
     {
         private string subReddit;
         private PostStatus postStatus;
+        private int maxPosts;
 
-        public RedditRipper(string subReddit, PostStatus postStatus)
+        public RedditRipper(string subReddit, PostStatus postStatus, int maxPosts = 100)
         {
             this.subReddit = subReddit;
             this.postStatus = postStatus;
+            this.maxPosts = maxPosts;
         }
 
         public async Task<SubReddit> GetSubReddit()
         {
-            string url = Utils.BuildUrl(this.subReddit, postStatus);
+            string url = Utils.BuildUrl(this.subReddit, this.postStatus, this.maxPosts);
             string json = await WebRequest.GetAsyncTask(url);
 
             SubReddit subReddit = SubReddit.ConvertToSubReddit(json);
