@@ -1,8 +1,10 @@
 ﻿using RedditRipperWPF.Web.models;
 using RedditRipperWPF.Web.utils;
+using System;
 using System.Diagnostics;
 using System.IO;
 using System.Net;
+using System.Windows.Media.Imaging;
 
 namespace RedditRipperWPF.Web
 {
@@ -23,12 +25,19 @@ namespace RedditRipperWPF.Web
                 item.Progress = e.ProgressPercentage;
             };
 
+            string fileDest = $"{downloadDir}\\{Utils.Instance.ReplaceInvalidChars(item.FileName)}";
+
+            wc.DownloadFileCompleted += (sender, e) =>
+            {
+                item.Image = new FileInfo(fileDest).FullName;
+            };
+
             Debug.WriteLine($"Url: {item.Url} File Name: {item.FileName}");
 
             try
             {
                 Directory.CreateDirectory(this.downloadDir);
-                await wc.DownloadFileTaskAsync(item.Url, $"{downloadDir}\\{Utils.Instance.ReplaceInvalidChars(item.FileName)}");
+                await wc.DownloadFileTaskAsync(item.Url, fileDest);
             }
             catch (WebException we)
             {

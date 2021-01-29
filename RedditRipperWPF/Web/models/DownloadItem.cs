@@ -1,4 +1,5 @@
-﻿using System.ComponentModel;
+﻿using System;
+using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using System.Windows.Media.Imaging;
 
@@ -6,8 +7,8 @@ namespace RedditRipperWPF.Web.models
 {
     public class DownloadItem : INotifyPropertyChanged
     {
-        private BitmapImage image;
-        public BitmapImage Image
+        private string image;
+        public string Image
         {
             get { return image; }
             set { image = value; NotifyPropertyChanged(); }
