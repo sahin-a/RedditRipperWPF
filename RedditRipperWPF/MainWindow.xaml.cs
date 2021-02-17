@@ -50,12 +50,8 @@ namespace RedditRipperWPF
                 item.Title = post.Data.Title;
                 item.Url = post.Data.Url;
 
-                // test
                 if (item.Url.Contains("gfycat.com"))
                     item.Url = RedditAPI.utils.Utils.GetImageUrlFromGfycat(item.Url);
-                else
-                    if (!item.Url.Contains("i.imgur.com") && !item.Url.Contains("i.redd.it"))
-                    return;
 
                 item.FileName = Web.utils.Utils.Instance.GetFileNameFromUrl(item.Url);
                 item.FileName = string.IsNullOrEmpty(item.FileName) || string.IsNullOrWhiteSpace(item.FileName)
@@ -87,6 +83,11 @@ namespace RedditRipperWPF
             {
                 PostCountTBox.Text = "1";
             }
+        }
+
+        private void SingleDownloadBtn_Click(object sender, RoutedEventArgs e)
+        {
+
         }
     }
 }
