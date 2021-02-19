@@ -1,4 +1,6 @@
-﻿using RedditRipperWPF.RedditAPI;
+﻿using RedditRipperWPF.ImageViewer;
+using RedditRipperWPF.ImageViewer.models;
+using RedditRipperWPF.RedditAPI;
 using RedditRipperWPF.RedditAPI.enums;
 using RedditRipperWPF.RedditAPI.models;
 using RedditRipperWPF.Web;
@@ -88,6 +90,20 @@ namespace RedditRipperWPF
         private void SingleDownloadBtn_Click(object sender, RoutedEventArgs e)
         {
 
+        }
+
+        private void Image_MouseLeftButtonDown(object sender, System.Windows.Input.MouseButtonEventArgs e)
+        {
+            if (e.ClickCount == 2)
+            {
+                DownloadItem selectedItem = (DownloadItem)DownloadLogBox.SelectedItem;
+
+                Image image = new Image();
+                image.FileName = selectedItem.FileName;
+                image.Path = selectedItem.Image;
+
+                new ImageViewerWindow(image).ShowDialog();
+            }
         }
     }
 }

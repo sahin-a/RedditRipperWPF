@@ -9,15 +9,20 @@
     <Grid Margin="5">
         <Grid>
             <Grid.ColumnDefinitions>
-                <ColumnDefinition />
+                <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
             <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
                 <RowDefinition Height="*" />
                 <RowDefinition Height="Auto" />
                 <RowDefinition Height="Auto" />
             </Grid.RowDefinitions>
 
-            <ListView x:Name="DownloadLogBox" Grid.Row="0"  HorizontalContentAlignment="Stretch">
+            <DockPanel Grid.Row="0">
+                <!--<Button x:Name="SingleDownloadBtn" Content="Single Download" Width="Auto" Click="SingleDownloadBtn_Click"></Button>-->
+            </DockPanel>
+
+            <ListView x:Name="DownloadLogBox" Grid.Row="1"  HorizontalContentAlignment="Stretch">
                 <ListView.ItemTemplate>
                     <DataTemplate>
                         <Grid>
@@ -36,7 +41,7 @@
                                     <ColumnDefinition Width="*" />
                                 </Grid.ColumnDefinitions>
 
-                                <Image Source="{Binding Image}" Margin="5" Height="32" Width="32" Stretch="Fill" Grid.Column="0"/>
+                                <Image Source="{Binding Image}" Margin="5" Height="32" Width="32" Stretch="Fill" Grid.Column="0" MouseLeftButtonDown="Image_MouseLeftButtonDown"/>
                                 <Label Content="{Binding Title}" Margin="5" Padding="5" Grid.Column="1" />
                                 <Label Content="{Binding Size}" Margin="5" Padding="5" Grid.Column="2" />
                             </Grid>
@@ -48,7 +53,7 @@
             </ListView>
 
             <!-- [Subreddit] (TextBox) [Post Status] (ComboBox) -->
-            <Grid Grid.Row="1">
+            <Grid Grid.Row="2">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="*" />
                     <ColumnDefinition Width="Auto" />
@@ -60,7 +65,7 @@
                 <ComboBox x:Name="PostStatusComboBox" SelectedIndex="0" Grid.Column="2" Padding="5" />
             </Grid>
 
-            <Button x:Name="DownloadBtn" Content="Download" Grid.Row="2" Padding="5" Click="DownloadBtn_Click"/>
+            <Button x:Name="DownloadBtn" Content="Download" Grid.Row="3" Padding="5" Click="DownloadBtn_Click"/>
         </Grid>
     </Grid>
 </Window>
