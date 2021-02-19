@@ -61,7 +61,7 @@ namespace RedditRipperWPF
 
                 this.DownloadLogBox.Items.Add(item);
 
-                Downloader downloader = new Downloader("Downloads");
+                Downloader downloader = new Downloader($"Downloads\\{subRedditName}\\{postStatus.ToString()}");
                 downloader.DownloadAsync(item);
             }
         }
