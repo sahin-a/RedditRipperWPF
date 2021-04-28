@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:RedditRipperWPF"
         mc:Ignorable="d"
-        Title="RedditRipperWPF" Height="450" Width="800" MaxWidth="800">
+        Title="RedditRipperWPF" Height="450" Width="800">
     <Grid Margin="5">
         <Grid>
             <Grid.ColumnDefinitions>
@@ -22,7 +22,7 @@
                 <!--<Button x:Name="SingleDownloadBtn" Content="Single Download" Width="Auto" Click="SingleDownloadBtn_Click"></Button>-->
             </DockPanel>
 
-            <ListView x:Name="DownloadLogBox" Grid.Row="1"  HorizontalContentAlignment="Stretch">
+            <ListView x:Name="DownloadLogBox" Grid.Row="1"  HorizontalContentAlignment="Stretch" ScrollViewer.HorizontalScrollBarVisibility="Disabled">
                 <ListView.ItemTemplate>
                     <DataTemplate>
                         <Grid>
@@ -46,7 +46,7 @@
                                 <Label Content="{Binding Size}" Margin="5" Padding="5" Grid.Column="2" />
                             </Grid>
 
-                            <ProgressBar Value="{Binding Progress}" Grid.Row="1" Maximum="100" Margin="5"/>
+                            <ProgressBar Value="{Binding Progress}" Grid.Row="1" Margin="5" Maximum="100" IsIndeterminate="False"/>
                         </Grid>
                     </DataTemplate>
                 </ListView.ItemTemplate>
